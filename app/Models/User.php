@@ -18,27 +18,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'wechat_name', 'wechat_open_id', 'wechat_session_key', 'wechat_avatar',
+        'gender', 'signature', 'status'
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * 关联关系绑定：一个用户可以存在多个好友
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function friends(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Friend::class);
+    }
 }
